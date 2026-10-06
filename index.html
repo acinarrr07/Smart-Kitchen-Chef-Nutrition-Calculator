@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Smart Recipe & Nutrition Assistant</title>
+
+<style>
+<style>
+/* ================================
+   PREMIUM LUXURY THEME
+================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(201,162,39,0.08), transparent 35%),
+        #0f1110;
+    color: #f4efe4;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+header {
+    background:
+        linear-gradient(
+            rgba(15,17,16,0.78),
+            rgba(15,17,16,0.94)
+        ),
+        radial-gradient(
+            circle at center,
+            #3a3220,
+            #0f1110 70%
+        );
+
+    color: #f4efe4;
+    text-align: center;
+    padding: 75px 20px;
+
+    border-bottom: 1px solid rgba(201,162,39,0.25);
+}
+
+header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 46px;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    color: #d6b64c;
+
+    text-shadow:
+        0 2px 20px rgba(201,162,39,0.15);
+}
+
+header p {
+    color: #b7b9b4;
+    font-size: 17px;
+    max-width: 700px;
+    margin: auto;
+}
+
+
+/* ================================
+   MAIN CONTAINER
+================================ */
+
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 45px auto;
+}
+
+
+/* ================================
+   CARDS
+================================ */
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            #1b1f1c,
+            #151816
+        );
+
+    border: 1px solid rgba(201,162,39,0.16);
+
+    border-radius: 18px;
+
+    padding: 32px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,0.35);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #c9a227,
+            transparent
+        );
+
+    opacity: 0.6;
+}
+
+.card h2 {
+    font-family: Georgia, "Times New Roman", serif;
+
+    color: #d6b64c;
+
+    font-size: 27px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ================================
+   STEP CIRCLE
+================================ */
+
+.step {
+    display: inline-block;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c9a227,
+            #8f7017
+        );
+
+    color: #111;
+
+    border-radius: 50%;
+
+    width: 34px;
+    height: 34px;
+
+    text-align: center;
+    line-height: 34px;
+
+    margin-right: 8px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 4px 15px rgba(201,162,39,0.25);
+}
+
+
+/* ================================
+   TEXT
+================================ */
+
+.card p {
+    color: #aeb2ac;
+}
+
+label {
+    color: #d8d8d2;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 15px 17px;
+
+    margin: 10px 0;
+
+    background: #101311;
+
+    border: 1px solid #343a35;
+
+    border-radius: 10px;
+
+    color: #f4efe4;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.25s;
+}
+
+input::placeholder {
+    color: #777d77;
+}
+
+input:focus,
+select:focus {
+
+    border-color: #c9a227;
+
+    box-shadow:
+        0 0 0 3px rgba(201,162,39,0.08);
+}
+
+select option {
+    background: #181c19;
+    color: #f4efe4;
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+button {
+
+    border: 1px solid #c9a227;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c9a227,
+            #a9841e
+        );
+
+    color: #111;
+
+    padding: 13px 24px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    margin-top: 10px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+button:hover {
+
+    transform: translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #e0c45a,
+            #b99529
+        );
+
+    box-shadow:
+        0 8px 25px rgba(201,162,39,0.22);
+}
+
+.secondary {
+    background: #252a27;
+    color: #ddd;
+    border-color: #444b45;
+}
+
+.secondary:hover {
+    background: #303631;
+}
+
+
+/* ================================
+   RECIPE GRID
+================================ */
+
+.recipe-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+
+    gap: 22px;
+
+    margin-top: 25px;
+}
+
+
+/* ================================
+   RECIPE CARD
+================================ */
+
+.recipe-card {
+
+    border: 1px solid #303630;
+
+    border-radius: 15px;
+
+    padding: 23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #202521,
+            #171a18
+        );
+
+    transition:
+        transform 0.25s,
+        border-color 0.25s,
+        box-shadow 0.25s;
+}
+
+.recipe-card:hover {
+
+    transform: translateY(-6px);
+
+    border-color: rgba(201,162,39,0.55);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.45);
+}
+
+.recipe-card h3 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: #e0c45a;
+
+    font-size: 21px;
+
+    margin-bottom: 8px;
+}
+
+
+/* ================================
+   CATEGORY
+================================ */
+
+.category {
+
+    display: inline-block;
+
+    background:
+        rgba(201,162,39,0.10);
+
+    color: #d6b64c;
+
+    border:
+        1px solid rgba(201,162,39,0.28);
+
+    padding:
+        4px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    letter-spacing: 0.5px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 12px;
+}
+
+
+/* ================================
+   MATCH
+================================ */
+
+.match {
+
+    font-weight: bold;
+
+    color: #d6b64c;
+
+    margin: 10px 0;
+}
+
+
+/* ================================
+   INGREDIENT STATUS
+================================ */
+
+.missing {
+
+    color: #d47b7b !important;
+
+    font-size: 14px;
+}
+
+.available {
+
+    color: #9dbb91 !important;
+
+    font-size: 14px;
+}
+
+
+/* ================================
+   RECIPE INFO
+================================ */
+
+.recipe-info {
+
+    background:
+        #111411;
+
+    border:
+        1px solid #303630;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    margin-top: 20px;
+}
+
+.recipe-info h3 {
+
+    color: #d6b64c;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.recipe-info ul {
+
+    padding-left: 22px;
+
+    color: #bfc2bc;
+}
+
+.recipe-info li {
+    margin-bottom: 4px;
+}
+
+
+/* ================================
+   NUTRITION SECTION
+================================ */
+
+.nutrition {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-top: 22px;
+}
+
+.nutrition-box {
+
+    padding: 22px 15px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #202520,
+            #151815
+        );
+
+    border:
+        1px solid rgba(201,162,39,0.18);
+
+    transition: 0.25s;
+}
+
+.nutrition-box:hover {
+
+    border-color:
+        rgba(201,162,39,0.5);
+
+    transform: translateY(-3px);
+}
+
+.nutrition-box strong {
+
+    display: block;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 27px;
+
+    color: #d6b64c;
+
+    margin-bottom: 5px;
+}
+
+.nutrition-box span {
+
+    font-size: 12px;
+
+    color: #929891;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.7px;
+}
+
+
+/* ================================
+   RECIPE COUNT
+================================ */
+
+.counter {
+
+    text-align: center;
+
+    background:
+        rgba(201,162,39,0.07);
+
+    border:
+        1px solid rgba(201,162,39,0.18);
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    margin-top: 18px;
+
+    color: #c9a227;
+
+    font-weight: 600;
+}
+
+
+/* ================================
+   RESULTS
+================================ */
+
+#results,
+#nutritionResult {
+
+    display: none;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    margin-top: 60px;
+
+    background:
+        #0a0c0b;
+
+    color: #777d77;
+
+    border-top:
+        1px solid rgba(201,162,39,0.18);
+}
+
+footer p:first-child {
+
+    color: #c9a227;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 18px;
+
+    margin-bottom: 5px;
+}
+
+
+/* ================================
+   SCROLLBAR
+================================ */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0c0e0d;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background:
+        #51451f;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #c9a227;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 55px 20px;
+    }
+
+    header h1 {
+        font-size: 30px;
+    }
+
+    .container {
+        width: 94%;
+    }
+
+    .card {
+        padding: 23px;
+    }
+
+    .nutrition {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .recipe-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+}
+</style>
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🍽️ Smart Recipe & Nutrition Assistant</h1>
+    <p>Find recipes using the ingredients you already have and calculate their nutritional values.</p>
+</header>
+
+<div class="container">
+
+    <!-- STEP 1 -->
+    <div class="card">
+
+        <h2>
+            <span class="step">1</span>
+            What ingredients do you have?
+        </h2>
+
+        <p>
+            Enter the ingredients available in your kitchen.
+            Separate each ingredient with a comma.
+        </p>
+
+        <input
+            type="text"
+            id="ingredients"
+            placeholder="Example: chicken, rice, tomato, onion"
+        >
+
+        <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Dessert">Dessert</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="High Protein">High Protein</option>
+        </select>
+
+        <button id="searchButton">
+            🔎 Find Recipes
+        </button>
+
+        <div class="counter">
+            500 recipes available in the database
+        </div>
+
+    </div>
+
+
+    <!-- RECIPE RESULTS -->
+    <div class="card" id="results">
+
+        <h2>🍳 Recommended Recipes</h2>
+
+        <p>
+            Recipes are ranked according to how many ingredients you already have.
+        </p>
+
+        <div id="recipeList" class="recipe-grid"></div>
+
+    </div>
+
+
+    <!-- STEP 2 -->
+    <div class="card">
+
+        <h2>
+            <span class="step">2</span>
+            Calculate Nutrition
+        </h2>
+
+        <p>
+            Select a recipe above or enter the meal name manually.
+        </p>
+
+        <input
+            type="text"
+            id="meal"
+            placeholder="Example: Chicken Rice"
+        >
+
+        <label>
+            <strong>Number of servings:</strong>
+        </label>
+
+        <select id="servings">
+            <option value="1">1 Serving</option>
+            <option value="2">2 Servings</option>
+            <option value="3">3 Servings</option>
+            <option value="4">4 Servings</option>
+            <option value="5">5 Servings</option>
+            <option value="6">6 Servings</option>
+        </select>
+
+        <button id="calculateButton">
+            🧮 Calculate Nutrition
+        </button>
+
+        <div id="nutritionResult">
+
+            <div class="recipe-info">
+
+                <h2 id="selectedRecipeName"></h2>
+
+                <p id="selectedRecipeCategory"></p>
+
+                <h3>Ingredients</h3>
+
+                <ul id="selectedIngredients"></ul>
+
+            </div>
+
+            <div class="nutrition">
+
+                <div class="nutrition-box">
+                    <strong id="calories">0</strong>
+                    <span>Calories</span>
+                </div>
+
+                <div class="nutrition-box">
+                    <strong id="protein">0</strong>
+                    <span>Protein (g)</span>
+                </div>
+
+                <div class="nutrition-box">
+                    <strong id="carbs">0</strong>
+                    <span>Carbohydrates (g)</span>
+                </div>
+
+                <div class="nutrition-box">
+                    <strong id="fat">0</strong>
+                    <span>Fat (g)</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    <p>Smart Recipe & Nutrition Assistant</p>
+    <p>Gastronomy & Culinary Arts Project</p>
+</footer>
+
+
+<script>
+
+/* =====================================================
+   BASE RECIPE DATABASE
+===================================================== */
+
+const baseRecipes = [
+
+    {
+        name: "Chicken Rice",
+        category: "High Protein",
+        ingredients: [
+            "chicken",
+            "rice",
+            "onion",
+            "olive oil",
+            "salt",
+            "black pepper"
+        ],
+        calories: 520,
+        protein: 38,
+        carbs: 55,
+        fat: 15
+    },
+
+    {
+        name: "Chicken Pasta",
+        category: "Lunch",
+        ingredients: [
+            "chicken",
+            "pasta",
+            "tomato",
+            "olive oil",
+            "garlic",
+            "salt"
+        ],
+        calories: 610,
+        protein: 42,
+        carbs: 65,
+        fat: 18
+    },
+
+    {
+        name: "Chicken Salad",
+        category: "Healthy",
+        ingredients: [
+            "chicken",
+            "lettuce",
+            "tomato",
+            "cucumber",
+            "olive oil",
+            "lemon"
+        ],
+        calories: 390,
+        protein: 40,
+        carbs: 15,
+        fat: 18
+    },
+
+    {
+        name: "Beef Burger",
+        category: "Dinner",
+        ingredients: [
+            "beef",
+            "burger bun",
+            "lettuce",
+            "tomato",
+            "onion",
+            "cheese"
+        ],
+        calories: 720,
+        protein: 42,
+        carbs: 55,
+        fat: 35
+    },
+
+    {
+        name: "Spaghetti Bolognese",
+        category: "Dinner",
+        ingredients: [
+            "beef",
+            "spaghetti",
+            "tomato",
+            "onion",
+            "garlic",
+            "olive oil"
+        ],
+        calories: 650,
+        protein: 35,
+        carbs: 72,
+        fat: 22
+    },
+
+    {
+        name: "Tuna Sandwich",
+        category: "Lunch",
+        ingredients: [
+            "tuna",
+            "bread",
+            "lettuce",
+            "tomato",
+            "mayonnaise"
+        ],
+        calories: 430,
+        protein: 29,
+        carbs: 42,
+        fat: 16
+    },
+
+    {
+        name: "Grilled Salmon",
+        category: "High Protein",
+        ingredients: [
+            "salmon",
+            "lemon",
+            "olive oil",
+            "salt",
+            "black pepper"
+        ],
+        calories: 480,
+        protein: 40,
+        carbs: 5,
+        fat: 32
+    },
+
+    {
+        name: "Vegetable Soup",
+        category: "Vegetarian",
+        ingredients: [
+            "carrot",
+            "potato",
+            "onion",
+            "tomato",
+            "celery",
+            "olive oil"
+        ],
+        calories: 220,
+        protein: 6,
+        carbs: 35,
+        fat: 7
+    },
+
+    {
+        name: "Lentil Soup",
+        category: "Vegetarian",
+        ingredients: [
+            "lentil",
+            "onion",
+            "carrot",
+            "potato",
+            "olive oil"
+        ],
+        calories: 280,
+        protein: 15,
+        carbs: 42,
+        fat: 7
+    },
+
+    {
+        name: "Omelette",
+        category: "Breakfast",
+        ingredients: [
+            "egg",
+            "cheese",
+            "butter",
+            "salt",
+            "black pepper"
+        ],
+        calories: 330,
+        protein: 22,
+        carbs: 4,
+        fat: 25
+    },
+
+    {
+        name: "Pancakes",
+        category: "Breakfast",
+        ingredients: [
+            "flour",
+            "egg",
+            "milk",
+            "sugar",
+            "butter"
+        ],
+        calories: 420,
+        protein: 12,
+        carbs: 58,
+        fat: 16
+    },
+
+    {
+        name: "Greek Salad",
+        category: "Vegetarian",
+        ingredients: [
+            "tomato",
+            "cucumber",
+            "olive",
+            "feta cheese",
+            "onion",
+            "olive oil"
+        ],
+        calories: 310,
+        protein: 10,
+        carbs: 18,
+        fat: 22
+    },
+
+    {
+        name: "Chicken Wrap",
+        category: "Lunch",
+        ingredients: [
+            "chicken",
+            "tortilla",
+            "lettuce",
+            "tomato",
+            "yogurt",
+            "onion"
+        ],
+        calories: 540,
+        protein: 37,
+        carbs: 48,
+        fat: 20
+    },
+
+    {
+        name: "Beef Steak",
+        category: "High Protein",
+        ingredients: [
+            "beef",
+            "butter",
+            "garlic",
+            "salt",
+            "black pepper"
+        ],
+        calories: 610,
+        protein: 48,
+        carbs: 4,
+        fat: 42
+    },
+
+    {
+        name: "Chicken Curry",
+        category: "Dinner",
+        ingredients: [
+            "chicken",
+            "curry",
+            "onion",
+            "garlic",
+            "cream",
+            "olive oil"
+        ],
+        calories: 560,
+        protein: 39,
+        carbs: 18,
+        fat: 34
+    },
+
+    {
+        name: "Fried Rice",
+        category: "Lunch",
+        ingredients: [
+            "rice",
+            "egg",
+            "carrot",
+            "peas",
+            "soy sauce",
+            "olive oil"
+        ],
+        calories: 460,
+        protein: 14,
+        carbs: 64,
+        fat: 15
+    },
+
+    {
+        name: "Tomato Pasta",
+        category: "Vegetarian",
+        ingredients: [
+            "pasta",
+            "tomato",
+            "garlic",
+            "olive oil",
+            "basil"
+        ],
+        calories: 490,
+        protein: 14,
+        carbs: 72,
+        fat: 14
+    },
+
+    {
+        name: "Lasagna",
+        category: "Dinner",
+        ingredients: [
+            "beef",
+            "lasagna sheets",
+            "tomato",
+            "cheese",
+            "onion",
+            "milk"
+        ],
+        calories: 680,
+        protein: 35,
+        carbs: 58,
+        fat: 32
+    },
+
+    {
+        name: "Mac and Cheese",
+        category: "Vegetarian",
+        ingredients: [
+            "macaroni",
+            "cheese",
+            "milk",
+            "butter",
+            "flour"
+        ],
+        calories: 590,
+        protein: 23,
+        carbs: 64,
+        fat: 28
+    },
+
+    {
+        name: "Menemen",
+        category: "Breakfast",
+        ingredients: [
+            "egg",
+            "tomato",
+            "green pepper",
+            "onion",
+            "olive oil"
+        ],
+        calories: 340,
+        protein: 18,
+        carbs: 14,
+        fat: 24
+    },
+
+    {
+        name: "Shakshuka",
+        category: "Breakfast",
+        ingredients: [
+            "egg",
+            "tomato",
+            "pepper",
+            "onion",
+            "olive oil"
+        ],
+        calories: 360,
+        protein: 19,
+        carbs: 16,
+        fat: 25
+    },
+
+    {
+        name: "Falafel",
+        category: "Vegetarian",
+        ingredients: [
+            "chickpeas",
+            "onion",
+            "garlic",
+            "parsley",
+            "flour",
+            "olive oil"
+        ],
+        calories: 390,
+        protein: 15,
+        carbs: 45,
+        fat: 17
+    },
+
+    {
+        name: "Hummus",
+        category: "Vegetarian",
+        ingredients: [
+            "chickpeas",
+            "tahini",
+            "lemon",
+            "garlic",
+            "olive oil"
+        ],
+        calories: 280,
+        protein: 9,
+        carbs: 24,
+        fat: 17
+    },
+
+    {
+        name: "Fruit Salad",
+        category: "Dessert",
+        ingredients: [
+            "apple",
+            "banana",
+            "orange",
+            "strawberry",
+            "honey"
+        ],
+        calories: 210,
+        protein: 2,
+        carbs: 52,
+        fat: 1
+    },
+
+    {
+        name: "Yogurt Bowl",
+        category: "Breakfast",
+        ingredients: [
+            "yogurt",
+            "banana",
+            "strawberry",
+            "honey",
+            "oats"
+        ],
+        calories: 350,
+        protein: 15,
+        carbs: 50,
+        fat: 9
+    },
+
+    {
+        name: "Oatmeal",
+        category: "Breakfast",
+        ingredients: [
+            "oats",
+            "milk",
+            "banana",
+            "honey",
+            "cinnamon"
+        ],
+        calories: 370,
+        protein: 13,
+        carbs: 58,
+        fat: 10
+    }
+
+];
+
+
+/* =====================================================
+   CREATE 500 DATABASE RECORDS
+===================================================== */
+
+const prefixes = [
+    "Classic",
+    "Healthy",
+    "Grilled",
+    "Roasted",
+    "Homestyle",
+    "Mediterranean",
+    "Italian",
+    "Asian",
+    "Spicy",
+    "Chef Special",
+    "Traditional",
+    "Light",
+    "Protein",
+    "Family",
+    "Quick",
+    "Easy",
+    "Fresh",
+    "Delicious",
+    "Simple",
+    "Gourmet"
+];
+
+let recipes = [];
+
+let recipeID = 1;
+
+for (let i = 0; i < 500; i++) {
+
+    const base = baseRecipes[i % baseRecipes.length];
+
+    const prefix = prefixes[Math.floor(i / baseRecipes.length)];
+
+    const variationNumber = Math.floor(i / baseRecipes.length) + 1;
+
+    const multiplier = 0.90 + ((i % 10) * 0.025);
+
+    recipes.push({
+
+        id: recipeID++,
+
+        name:
+            prefix +
+            " " +
+            base.name +
+            " " +
+            variationNumber,
+
+        category: base.category,
+
+        ingredients: [...base.ingredients],
+
+        calories: Math.round(base.calories * multiplier),
+
+        protein: Math.round(base.protein * multiplier),
+
+        carbs: Math.round(base.carbs * multiplier),
+
+        fat: Math.round(base.fat * multiplier)
+
+    });
+}
+
+
+/* =====================================================
+   GLOBAL SELECTED RECIPE
+===================================================== */
+
+let selectedRecipe = null;
+
+
+/* =====================================================
+   FIND RECIPES
+===================================================== */
+
+function findRecipes() {
+
+    const input =
+        document
+        .getElementById("ingredients")
+        .value
+        .toLowerCase()
+        .split(",")
+        .map(item => item.trim())
+        .filter(item => item !== "");
+
+    const category =
+        document
+        .getElementById("categoryFilter")
+        .value;
+
+    const recipeList =
+        document.getElementById("recipeList");
+
+    recipeList.innerHTML = "";
+
+    if (input.length === 0) {
+
+        alert(
+            "Please enter at least one ingredient."
+        );
+
+        return;
+    }
+
+
+    let results = [];
+
+
+    recipes.forEach(recipe => {
+
+        if (
+            category !== "all" &&
+            recipe.category !== category
+        ) {
+            return;
+        }
+
+
+        let matchedIngredients =
+            recipe.ingredients.filter(
+                ingredient =>
+                input.some(userIngredient =>
+                    ingredient.includes(userIngredient) ||
+                    userIngredient.includes(ingredient)
+                )
+            );
+
+
+        if (matchedIngredients.length > 0) {
+
+            const matchPercentage =
+                Math.round(
+                    (matchedIngredients.length /
+                    recipe.ingredients.length) * 100
+                );
+
+
+            const missingIngredients =
+                recipe.ingredients.filter(
+                    ingredient =>
+                    !input.some(userIngredient =>
+                        ingredient.includes(userIngredient) ||
+                        userIngredient.includes(ingredient)
+                    )
+                );
+
+
+            results.push({
+
+                recipe: recipe,
+
+                matched: matchedIngredients,
+
+                missing: missingIngredients,
+
+                percentage: matchPercentage
+
+            });
+
+        }
+
+    });
+
+
+    results.sort(
+        (a, b) =>
+        b.percentage - a.percentage
+    );
+
+
+    const limitedResults =
+        results.slice(0, 20);
+
+
+    limitedResults.forEach(result => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "recipe-card";
+
+
+        card.innerHTML = `
+
+            <span class="category">
+                ${result.recipe.category}
+            </span>
+
+            <h3>
+                ${result.recipe.name}
+            </h3>
+
+            <div class="match">
+                ${result.percentage}% ingredient match
+            </div>
+
+            <p class="available">
+                <strong>You have:</strong>
+                ${result.matched.join(", ")}
+            </p>
+
+            <p class="missing">
+                <strong>Missing:</strong>
+                ${
+                    result.missing.length
+                    ? result.missing.join(", ")
+                    : "Nothing! 🎉"
+                }
+            </p>
+
+            <p>
+                🔥 ${result.recipe.calories} kcal
+                |
+                💪 ${result.recipe.protein}g protein
+            </p>
+
+            <button class="selectRecipeButton">
+                Select This Recipe
+            </button>
+
+        `;
+
+
+        const selectButton =
+            card.querySelector(
+                ".selectRecipeButton"
+            );
+
+
+        selectButton.addEventListener(
+            "click",
+            function() {
+
+                selectRecipe(
+                    result.recipe.id
+                );
+
+            }
+        );
+
+
+        recipeList.appendChild(card);
+
+    });
+
+
+    document
+        .getElementById("results")
+        .style.display = "block";
+
+
+    if (limitedResults.length === 0) {
+
+        recipeList.innerHTML = `
+            <p>
+                No matching recipes found.
+                Try adding more ingredients.
+            </p>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   SELECT RECIPE
+===================================================== */
+
+function selectRecipe(id) {
+
+    selectedRecipe =
+        recipes.find(
+            recipe => recipe.id === id
+        );
+
+
+    if (!selectedRecipe) {
+        return;
+    }
+
+
+    document
+        .getElementById("meal")
+        .value =
+        selectedRecipe.name;
+
+
+    calculateNutrition();
+
+
+    document
+        .getElementById("nutritionResult")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* =====================================================
+   CALCULATE NUTRITION
+===================================================== */
+
+function calculateNutrition() {
+
+    const mealInput =
+        document
+        .getElementById("meal")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const servings =
+        Number(
+            document
+            .getElementById("servings")
+            .value
+        );
+
+
+    if (mealInput === "") {
+
+        alert(
+            "Please enter or select a recipe."
+        );
+
+        return;
+
+    }
+
+
+    let recipe =
+        selectedRecipe;
+
+
+    if (
+        !recipe ||
+        !recipe.name.toLowerCase().includes(mealInput)
+    ) {
+
+        recipe =
+            recipes.find(
+                item =>
+                item.name
+                .toLowerCase()
+                .includes(mealInput)
+            );
+
+    }
+
+
+    if (!recipe) {
+
+        alert(
+            "Recipe not found. Please try another recipe name."
+        );
+
+        return;
+
+    }
+
+
+    selectedRecipe = recipe;
+
+
+    document
+        .getElementById("selectedRecipeName")
+        .textContent =
+        recipe.name;
+
+
+    document
+        .getElementById("selectedRecipeCategory")
+        .textContent =
+        "Category: " + recipe.category;
+
+
+    const ingredientsList =
+        document
+        .getElementById("selectedIngredients");
+
+
+    ingredientsList.innerHTML = "";
+
+
+    recipe.ingredients.forEach(
+        ingredient => {
+
+            const li =
+                document.createElement("li");
+
+            li.textContent =
+                ingredient;
+
+            ingredientsList.appendChild(li);
+
+        }
+    );
+
+
+    /*
+       Nutrition values are multiplied
+       according to the selected number
+       of servings.
+    */
+
+    document
+        .getElementById("calories")
+        .textContent =
+        Math.round(
+            recipe.calories * servings
+        );
+
+
+    document
+        .getElementById("protein")
+        .textContent =
+        Math.round(
+            recipe.protein * servings
+        );
+
+
+    document
+        .getElementById("carbs")
+        .textContent =
+        Math.round(
+            recipe.carbs * servings
+        );
+
+
+    document
+        .getElementById("fat")
+        .textContent =
+        Math.round(
+            recipe.fat * servings
+        );
+
+
+    document
+        .getElementById("nutritionResult")
+        .style.display = "block";
+
+}
+
+
+/* =====================================================
+   EVENT LISTENERS
+===================================================== */
+
+document
+    .getElementById("searchButton")
+    .addEventListener(
+        "click",
+        findRecipes
+    );
+
+
+document
+    .getElementById("calculateButton")
+    .addEventListener(
+        "click",
+        calculateNutrition
+    );
+
+
+/* ENTER KEY */
+
+document
+    .getElementById("ingredients")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                findRecipes();
+
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("meal")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                calculateNutrition();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
